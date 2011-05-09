@@ -20,7 +20,8 @@ function all() {
     .set('view options', {
       layout: app.set('layouts') + '/application.html.ejs'
     })
-    .set('db', client);
+    .set('db', client)
+    .set('config', config);
 
   app.use(express.methodOverride());
   app.use(express.static(__dirname + '/../static', { maxAge: 1 }));

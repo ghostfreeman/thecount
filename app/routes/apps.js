@@ -3,7 +3,7 @@ var crypto = require('crypto');
 exports.install = function install(app) {
   
   // list the current apps
-  app.get('/', requireAuth, function(req, res, next) {
+  app.get(/^\/(apps)?$/, requireAuth, function(req, res, next) {
     var db = app.settings.db,
         query = 'SELECT * FROM apps';
     
@@ -64,25 +64,28 @@ exports.install = function install(app) {
     });
   });
   
+  // use native browser auth to authenticate
+  // this only happens if we aren't in development mode
   function requireAuth( req, res, next ) {
-    if( req.session.authed ) return next();
+    if( req.session.authed || app.settings.env === 'development' ) return next();
         
     if( req.headers.authorization && authenticate( req ) ) {
         req.session.authed = true;
         next();
     } else 
       res.send('Unauthroized', { 'WWW-Authenticate': 'Basic' }, 401);
-      
-
   }
   
+  // authenticate using native browser auth
+  // creditials are in config
   function authenticate ( req ) {
-    var auth_header = req.headers.authorization,
+    var config = app.settings.config,
+        auth_header = req.headers.authorization,
         credentials = new Buffer(/Basic\s+(.+)$/gi.exec(auth_header)[1], 'base64').toString().split(':'),
         username = credentials[0],
         password = credentials[1];
     
-    return username === 'foo' && password === 'bar';
+    return username === config.credentials.username && password === config.credentials.password;
   }
   
   function generateAPIKey ( app_name ) {
