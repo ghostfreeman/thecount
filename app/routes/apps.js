@@ -72,7 +72,7 @@ exports.install = function install(app) {
     if( req.headers.authorization && authenticate( req ) ) {
         req.session.authed = true;
         next();
-    } else 
+    } else
       res.send('Unauthroized', { 'WWW-Authenticate': 'Basic' }, 401);
   }
   
