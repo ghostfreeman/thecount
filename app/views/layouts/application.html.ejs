@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= typeof title !== 'undefined' ? title : 'The Count' %></title>
+    <link rel='stylesheet' href='/css/styles.css' type='text/css' media='screen' charset='utf-8' />
+    
+  </head>
+  
+  <body>
+  
+    <div id='main'>
+      <h1>
+        Statistician
+        <a href='/apps/new'>Add Your App</a>
+      </h1>
+      
+      <%- body %>
+    </div>
+
+  </body>
+</html>

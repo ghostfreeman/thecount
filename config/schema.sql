@@ -1,0 +1,1 @@
+CREATE TABLE apps(name VARCHAR(128), api_key VARCHAR(64), created_at TIMESTAMP DEFAULT NOW());
