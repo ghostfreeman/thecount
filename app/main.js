@@ -35,7 +35,7 @@ function all() {
 
 // Add Routes
 
-var apps = require('./routes/apps').install(app),
+var applications = require('./routes/applications').install(app),
     resources = require('./routes/stats').install(app);
 
-app.listen(sm.listenPort, sm.listenHost);
+app.listen(5000);
