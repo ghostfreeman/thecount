@@ -3,7 +3,7 @@ var Application = require('../models/application'),
 
 exports.install = function install(app) {
   
-  app.get('/:app/stats/:name/total.json', findApp, function(req, res, next) {    
+  app.get('/apps/:app/stats/:name/total.json', findApp, function(req, res, next) {    
     var application = req.params.app,
         name = req.params.name;
 
@@ -13,7 +13,7 @@ exports.install = function install(app) {
     });
   });
   
-  app.get('/:app/stats/:name/today.json', findApp, function(req, res, next) {    
+  app.get('/apps/:app/stats/:name/today.json', findApp, function(req, res, next) {    
     var application = req.params.app,
         name = req.params.name;
         
@@ -24,7 +24,7 @@ exports.install = function install(app) {
     });
   });
   
-  app.get('/:app/stats/:name/monthly.json', findApp, function(req, res, next) {    
+  app.get('/apps/:app/stats/:name/monthly.json', findApp, function(req, res, next) {    
     var application = req.params.app,
         name = req.params.name;
 
@@ -35,10 +35,10 @@ exports.install = function install(app) {
   });
   
   // create a log counter for a given name (key)
-  app.post('/:app/stats', findAppByAPIKey, function(req, res, next) {
+  app.post('/apps/:app/stats', findAppByAPIKey, function(req, res, next) {
     var application = req.params.app,
         stats = req.body.stats;
-
+    
     Stat.create(application, stats, function(err, result) {
       if(err) throw err;
       res.send(200);
@@ -48,7 +48,7 @@ exports.install = function install(app) {
   function findAppByAPIKey ( req, res, next ) {
     var application = req.params.app,
         api_key = req.body.api_key;
-
+        
     Application.findByAPIKey(application, api_key, function(err, result) {
       if( err ) throw err;
       
