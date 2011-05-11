@@ -3,12 +3,6 @@ var sm = require('servermedium'),
     express = require('express'),
     app = express.createServer();
     
-var pg = require('pg').native,
-    connection_string = 'postgres://' + config.db.user + ':' + config.db.password + '@localhost/' + config.db.name,
-    client = new pg.Client(connection_string);
-    
-client.connect();
-
 app
   .configure(all);
 
@@ -20,7 +14,7 @@ function all() {
     .set('view options', {
       layout: app.set('layouts') + '/application.html.ejs'
     })
-    .set('db', client)
+    // .set('db', client)
     .set('config', config);
 
   app.use(express.methodOverride());
@@ -33,6 +27,9 @@ function all() {
   app.use(express.errorHandler({ showStack: true, dumpExceptions: true }));
 }
 
+var Application = require('app/models/application'),
+    Stat = require('app/models/stat');
+    
 // Add Routes
 
 var applications = require('./routes/applications').install(app),
