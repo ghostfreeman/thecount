@@ -35,4 +35,4 @@ var Application = require('app/models/application'),
 var applications = require('./routes/applications').install(app),
     resources = require('./routes/stats').install(app);
 
-app.listen(5000);
+app.listen(sm.listenPort, sm.listenHost);
