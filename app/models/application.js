@@ -1,4 +1,5 @@
-var Model = require('./model');
+var crypto = require('crypto'),
+    Model = require('./model');
 
 var Application = module.exports = function () {
  
